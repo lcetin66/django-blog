@@ -1,0 +1,58 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{% static "img/bootstrap-logo.svg" %}" alt="" width="30" height="24"
+                class="d-inline-block align-text-top">
+            Bootstrap
+        </a>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">Hakkimizda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Makaleler</a>
+                </li>
+                
+               
+            </ul>
+            <ul class="navbar-nav me-2 my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                {% if request.user.is_authenticated %}
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/articles/dashboard">Kontrol Paneli</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/logout">Cikis Yap</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/login">Giris Yap</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/register">Kayit ol</a>
+                </li>
+                
+                {% endif %}
+                
+                
+                
+                
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/user/login">Giris yap</a>
+                </li>-->
+            
+            
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
