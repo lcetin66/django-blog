@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+
+<div class="row">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+        <!-- Title -->
+        <h2 class="mt-4">{{article.title}}</h2>
+
+        <!-- Author -->
+        <p class="lead">
+            Yazan: {{article.author.username}}
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>{{article.created_date}}</p>
+
+        <hr>
+
+        <!-- Preview Image 
+        <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
+
+        <hr>-->
+
+        <!-- Post Content - Baslik alti
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error
+            quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum
+            minus inventore?</p> -->
+
+        <!-- Post Content -->
+        <p>
+            {{article.content}}
+        </p>
+        <hr>
+
+        <!-- Comments Form -->
+
+
+        <!-- Comments -->
+
+
+        <!-- Comment with nested comments -->
+
+
+
+    </div>
+
+    <!-- Sag taraf -->
+
+</div>
+
+{% endblock body %}
