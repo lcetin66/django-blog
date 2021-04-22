@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <hr>
+        <h3 class="display-6">Makaleler</h3>
+        <hr>
+    </div>
+</div>
+
+{% if articles %}
+    
+    {% for article in articles %}
+        
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+    
+           
+        
+                <h2 class="mt-4"><a href="/articles/article/{{article.id}}">{{article.title}}</a></h2>
+        
+                <p>
+                    <h6>Yazan: {{article.author.username}} / {{article.created_date}}</h6>
+                </p>
+                
+                <hr>
+                <!-- Preview Image -->
+                {% if article.article_image %}
+                <a href="/articles/article/{{article.id}}">
+                <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}"></a>
+                <hr>
+                {% endif %}
+                <!-- Post Content -->
+                <p>
+                    {{article.content|safe}}
+                </p>
+                <hr>
+            
+        
+            <!-- Sag taraf -->
+        </div>
+    </div>
+    
+    
+    {% endfor %}
+        
+
+{% else %}
+<div class="alert alert-danger">
+    Henüz bir makale bulunmuyor...
+</div>
+{% endif %}
+
+    
+{% endblock body %}
+    

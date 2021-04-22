@@ -17,16 +17,24 @@
         </p>
 
         <hr>
+        
 
         <!-- Date/Time -->
-        <p>{{article.created_date}}</p>
+       
+        <div>{{article.created_date}}</div>
+       
+        <hr>
+            
+        
+
+        <!-- Preview Image -->
+        
+        {% if article.article_image %}   
+                    
+        <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}">
 
         <hr>
-
-        <!-- Preview Image 
-        <img class="img-fluid rounded" src="http://placehold.it/900x300" alt="">
-
-        <hr>-->
+        {% endif %}
 
         <!-- Post Content - Baslik alti
         <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error
@@ -35,7 +43,7 @@
 
         <!-- Post Content -->
         <p>
-            {{article.content}}
+            {{article.content|safe}}
         </p>
         <hr>
 
