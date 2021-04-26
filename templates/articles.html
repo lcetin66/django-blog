@@ -7,52 +7,62 @@
         <hr>
         <h3 class="display-6">Makaleler</h3>
         <hr>
+
+        <form class="d-flex">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" name="keyword" placeholder="Aranacak kelime.."
+                aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Ara</button>
+        </form>
+    </div>
+</div>
+{% if articles %}
+
+{% for article in articles %}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+
+
+
+        <h2 class="mt-4"><a href="{% url 'article:detail' article.id %}">{{article.title}}</a></h2>
+
+        <p>
+        <h6>Yazan: {{article.author.username}} / {{article.created_date}}</h6>
+        </p>
+
+        <hr>
+        <!-- Preview Image -->
+        {% if article.article_image %}
+        <a href="{% url 'article:detail' article.id %}">
+            <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}"></a>
+        <hr>
+        {% endif %}
+        <!-- Post Content -->
+        <p>
+            {{article.content|safe|truncatewords_html:20}}
+        </p>
+        <a style="float:right;" class="btn btn-danger" href="{% url 'article:detail' article.id %}">Devamini oku</a>
+        <hr>
+
+
+        <!-- Sag taraf -->
     </div>
 </div>
 
-{% if articles %}
-    
-    {% for article in articles %}
-        
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-    
-           
-        
-                <h2 class="mt-4"><a href="/articles/article/{{article.id}}">{{article.title}}</a></h2>
-        
-                <p>
-                    <h6>Yazan: {{article.author.username}} / {{article.created_date}}</h6>
-                </p>
-                
-                <hr>
-                <!-- Preview Image -->
-                {% if article.article_image %}
-                <a href="/articles/article/{{article.id}}">
-                <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}"></a>
-                <hr>
-                {% endif %}
-                <!-- Post Content -->
-                <p>
-                    {{article.content|safe}}
-                </p>
-                <hr>
-            
-        
-            <!-- Sag taraf -->
-        </div>
-    </div>
-    
-    
-    {% endfor %}
-        
+
+{% endfor %}
+
 
 {% else %}
-<div class="alert alert-danger">
-    Henüz bir makale bulunmuyor...
+<div style="padding-top: 1em" class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="alert alert-danger">
+            Makale bulunamadi...
+        </div>
+    </div>
 </div>
 {% endif %}
 
-    
+
 {% endblock body %}
-    

@@ -4,16 +4,22 @@ from .models import Article
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-def articles(request):
-    articles = Article.objects.all()
-    
-    return render(request, 'articles.html', {'articles':articles})
 
+# Create your views here.
+
+
+def articles(request):
+    keyword = request.GET.get("keyword")
+
+    if keyword:
+        articles = Article.objects.filter(title__contains=keyword)
+        return render(request, "articles.html", {"articles": articles})
+    articles = Article.objects.all()
+
+    return render(request, "articles.html", {"articles": articles})
 
 def index(request):
     return render(request, 'index.html')
-
 
 def about(request):
     return render(request, 'about.html')
@@ -37,7 +43,7 @@ def addArticle(request):
         article.author = request.user
         article.save()
         messages.success(request, 'Makale basari ile olusturuldu')
-        return redirect('index')
+        return redirect('article:dashboard')
 
     return render(request, 'addarticle.html', {'form': form})
 
@@ -60,7 +66,7 @@ def updateArticle(request, id):
         article.author = request.user
         article.save()
         messages.success(request, 'Makale basari ile güncellendi')
-        return redirect('index')
+        return redirect('article:dashboard')
 
     return render (request, 'update.html',{'form':form})
 
@@ -68,9 +74,9 @@ def updateArticle(request, id):
 @login_required(login_url='user:login')
 def deleteArticle(request, id):
     article = get_object_or_404(Article, id=id)
-    
+
     article.delete()
-    
-    messages.success(request,'Makaleniz basari ile silinmistir...')
-    
-    return render ('article:dahboard')
+
+    messages.success(request, 'Makaleniz Başarıyla Silinmisdir...')
+
+    return redirect("article:dashboard")
