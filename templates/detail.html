@@ -47,10 +47,51 @@
         </p>
         <hr>
 
-        <!-- Comments Form -->
-
-
         <!-- Comments -->
+        <h4>Yorumlar</h4>
+        <hr>
+        {% if comments %}
+        {% for comment in comments %}
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h5 class="mt-0">{{comment.comment_author}}</h5>
+                {{comment.comment_date}} <br>
+                {{comment.comment_content}}
+            </div>
+        </div>
+        {% endfor %}
+        
+        
+        {% else %}
+        <div class="alert alert-danger">
+            Bu makaleye herhangi bir yorum yazılmamış,ilk yorum yapan siz olun!
+        </div>
+        {% endif %}
+        <!-- Comments Form -->
+        <div class="card my-4">
+            <h5 class="card-header">Yorum Birakin:</h5>
+            <div class="card-body">
+                <form method="post" action="{% url 'article:comment' article.id %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput" class="form-label">Isim</label>
+                        <input name="comment_author" type="text" class="form-control" id="formGroupExampleInput" placeholder="Isminizi girin">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput1" class="form-label">Email addresiniz</label>
+                        <input name="comment_email" type="email" class="form-control" id="formGroupExampleInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Yorumunu</label>
+                        <textarea name="comment_content"class="form-control" rows="3" id="formGroupExampleInput2" placeholder="Yorumunuzu yazin..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Yorumu Ekle</button>
+                </form>
+            </div>
+        </div>
+
+        
 
 
         <!-- Comment with nested comments -->
